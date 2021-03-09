@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210307235933) do
+ActiveRecord::Schema.define(version: 20210309215459) do
 
   create_table "appointment_locations", force: :cascade do |t|
     t.integer "appointment_id"
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20210307235933) do
   create_table "appointments", force: :cascade do |t|
     t.date    "date"
     t.time    "time"
-    t.text    "email"
+    t.text    "dose"
     t.integer "user_id"
   end
 

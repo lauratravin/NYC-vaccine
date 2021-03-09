@@ -47,8 +47,13 @@ class UsersController < ApplicationController
 
 #3-login for existing user
     get '/login' do
+       
         if Helper.is_logged_in?(session)
-            redirect "/appointments"
+            if Helper.is_admin?(session)
+                redirect "/admin"
+            else    
+                redirect "/appointments"
+            end    
         else
             erb :'users/login'
         end
@@ -59,7 +64,7 @@ class UsersController < ApplicationController
         user = User.find_by(:username => params[:username])
         if user && user.authenticate(params[:password])
             session[:user_id] = user.id
-            if Helper.is_logged_in?(session)
+            if Helper.is_admin?(session)
                 redirect "/admin"  
             else    
               redirect "/appointments"

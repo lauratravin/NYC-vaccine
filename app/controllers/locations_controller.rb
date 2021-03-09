@@ -83,7 +83,6 @@ end
 #4-delete location only admin
 
 delete '/locations/:id/delete' do
-
     if Helper.is_logged_in?(session)
         if Helper.is_admin?(session)  
             @location= Location.find_by_id(params[:id])

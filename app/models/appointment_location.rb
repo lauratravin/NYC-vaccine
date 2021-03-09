@@ -1,5 +1,5 @@
 class AppointmentLocation < ActiveRecord::Base
-    belongs_to :appointments
-    belongs_to :locations
+    belongs_to :appointment
+    belongs_to :location
    
 end
