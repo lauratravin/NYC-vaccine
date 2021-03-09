@@ -1,0 +1,22 @@
+<h1>Locations</h1>
+
+<ul>
+<%@locations.each do |l|%>
+   <li> <%=l.id%> | <%=l.name%>  |  <%=l.address%> 
+   <a href="/locations/<%=l.id%>/edit">Edit</a>
+   <a href="/locations/<%=l.id%>/delete">Delete</a>
+   </li>
+<%end%>
+</ul>
+<a href="/locations/new">New Location</a>
+
+<h1>Users</h1>
+
+<ul>
+<%@users.each do |u|%>
+   <li><%=u.id%> <%=u.username%>   <%=u.address%> </li>
+<%end%>
+</ul>
+
+
+<a href="/logout">Log out</a>

@@ -10,6 +10,19 @@
 <p>Login/Sign up to get an appointment in NYC.</p>
 </div>
 <div>
+
+
 <h2>Active Locations</h2>
 
 </div>
+
+
+<% if Helper.is_admin?(session)%>
+<div>
+ <ul>
+<li><a href="/admin">Administrate</a></li>
+
+
+</ul>
+</div>
+<%end%>

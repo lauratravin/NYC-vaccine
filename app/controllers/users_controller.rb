@@ -3,11 +3,13 @@ class UsersController < ApplicationController
 #routes
 #1-get user by slug
    get '/user/:slug' do
+      @user = User.find_by_slug(params[:slug])
+      erb :'users/show'  
    end 
 
 #2-sign up a new user into the portal
    get '/signup' do
-       if is_logged_in?
+       if Helper.is_logged_in?(session)
          redirect "/appointments"
        else 
          erb :'/users/create_user' 
@@ -45,7 +47,7 @@ class UsersController < ApplicationController
 
 #3-login for existing user
     get '/login' do
-        if is_logged_in?
+        if Helper.is_logged_in?(session)
             redirect "/appointments"
         else
             erb :'users/login'
@@ -57,19 +59,23 @@ class UsersController < ApplicationController
         user = User.find_by(:username => params[:username])
         if user && user.authenticate(params[:password])
             session[:user_id] = user.id
-            redirect "/appointments"
+            if Helper.is_logged_in?(session)
+                redirect "/admin"  
+            else    
+              redirect "/appointments"
+            end  
         else
             redirect "/signup"
         end        
     end  
  
- #-logout current user
+ #4-logout current user
     get '/logout' do
-        if is_logged_in?
+        if Helper.is_logged_in?(session)
             session.destroy
             redirect  "/"
         else
-            erb :'/login'
+            redirect  "/login"
         end
 
     end       
