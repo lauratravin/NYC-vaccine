@@ -1,26 +1,101 @@
 <h1>Locations</h1>
-
-<ul>
+<table>
+      <tr>
+      <th>Id</th>
+      <th>Location name</th>
+      <th>Address</th>
+      </tr>
 <%@locations.each do |l|%>
-   <li> <%=l.id%> | <%=l.name%>  |  <%=l.address%> 
-   <a href="/locations/<%=l.id%>/edit">Edit</a>
-     <form action="/locations/<%=l.id%>/delete" method="post">
-       <input id="hidden" type="hidden" name="_method" value="delete">
-       <input type="submit" value="Delete">
-     </form>
-
-   </li>
+      
+      <tr>
+        
+       <td> <%=l.id%> </td> 
+       <td> <%=l.name%> </td>  
+       <td> <%=l.address%>  </td>
+       <td> <a href="/locations/<%=l.id%>/edit">Edit</a> </td> 
+       <td> 
+          <form action="/locations/<%=l.id%>/delete" method="post">
+            <input id="hidden" type="hidden" name="_method" value="delete">
+            <input type="submit" value="Delete">
+          </form>
+        </td>   
+      </tr>
+   
 <%end%>
-</ul>
+
+</table>
+<br>
 <a href="/locations/new">New Location</a>
 
 <h1>Users</h1>
+<table>
+      <tr>
+      <th>Id</th>
+      <th>Username</th>
+      <th>Full Name</th>
+      <th>More</th>
+      <th>Edit</th>
 
-<ul>
-<%@users.each do |u|%>
-   <li><%=u.id%> <%=u.username%>   <%=u.address%> </li>
-<%end%>
-</ul>
+      </tr>
+    <%@users.each do |u|%>
+      <tr>
+       <td><%=u.id%></td> 
+       <td><%=u.username%></td>
+       <td><%=u.fullname%></td>
+       <td><a href="/users/<%=u.username%>">More</a></td>
+       <td><a href="/users/<%=u.id%>/edit">Edit</a> </td> 
+       </tr>
+    <%end%>
+</table>
+
+<h1>Appointments</h1>
+<table>
+      <tr>
+      <th>Id</th>
+      <th>Date</th>
+      <th>Hour</th>
+      <th>Dose</th>
+      <th>Location</th>
+      <th>User<th>
+
+      </tr>
+    <%@appointments.each do |a|%>
+      <tr>
+       <td><%=a.id%></td> 
+       <td><%=a.date%></td>
+       <td><%=a.time.strftime("%I:%M %p")%></td>
+       <td><%=a.dose%></td>
+       <td><%=a.location.name%></td>       
+       <td><a href="/users/<%=a.user.username%>"><%=a.user.username%></a></td>
+       <td><a href="/users/<%=a.id%>/edit">Edit</a> </td> 
+       <td>
+         <form action="/appointments/<%=a.id%>" method="post">
+           <input type="hidden" id="hidden" name="_method" value="delete">
+           <input type="submit" value="Cancel appointment">
+         </form>
+       </td> 
+       </tr>
+    <%end%>
+</table>
 
 
+<h1>Metrics</h1>
+<table>
+      <tr>
+      <th>Id</th>
+      <th>Locations</th>
+      <th>Appointments</th>
+      <th>Users</th>
+     
+
+      </tr>
+
+    <%@locations.each do |loc|%>
+      <tr>
+       <td><%=loc.id%></td> 
+       <td><%=loc.name%></td>
+       <td><%=loc.appointments.count%></td>
+        <td><%=loc.users.count%></td>
+    <%end%>
+</table>
 <a href="/logout">Log out</a>

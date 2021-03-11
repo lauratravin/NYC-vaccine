@@ -1,1 +1,26 @@
-only for super admin
+<h1>Edit</h1>
+
+<form action="/users/<%=@user.id%>/edit" method="post">
+     <input type="hidden" id="hidden" name="_method" value="patch">
+    <label for="fullname">Full  name</label>
+    <input type="text" name="fullname" required size="20" value="<%=@user.fullname%>"> <br>
+    <label for="address">Address</label>
+     <input type="text" name="address" required size="50" value="<%=@user.address%>"> <br>
+    <label for="state">State</label>
+     <input type="text" name="state"  value="NYC" value="<%=@user.state%>" readonly> <br>
+    <label for="email">Email</label>
+     <input type="email" name="email" required value="<%=@user.email%>"> <br>
+    <label for="dob">DOB</label>
+     <input type="date" name="dob" required value="<%=@user.dob%>"> <br>
+    <hr>
+     <input type="submit" value="Edit User">
+</form>
+
+<% if Helper.is_admin?(session) %>
+<a href="/admin">Admin's Page</a><br>
+
+<%else%>
+
+<a href="/appointments">Appointments</a><br>
+<%end%>
+ <a href="/logout">Log out</a>  

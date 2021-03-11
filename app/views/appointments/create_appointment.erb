@@ -2,7 +2,7 @@
 <form action="/appointments" method="post">
     <h2>Choose a location</h2>
     <%@locations.each do |l|%>
-       <input type="radio" name="location[id]" value="<%=l.id%>" checked><label><%=l.name%> <%=l.address%><br></label>
+       <input type="radio" name="appointment[location_id]" value="<%=l.id%>" checked><label><%=l.name%> <%=l.address%><br></label>
     <%end%>
         
    <br>
@@ -16,6 +16,13 @@
    
     <input type="submit" value="submit">
 
-
 </form>
 
+<% if Helper.is_admin?(session) %>
+<a href="/admin">Admin's Page</a><br>
+
+<%else%>
+
+<a href="/appointments">Appointments</a><br>
+<%end%>
+ <a href="/logout">Log out</a>  

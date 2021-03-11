@@ -1,5 +1,29 @@
-<h1>My Appointments</h1>
+<h1>Welcome, <%=Helper.current_user(session).username%></h1>
+   <p>Name: <%=Helper.current_user(session).fullname%></p>
+   <p>Address: <%=Helper.current_user(session).address%></p>
+   <p>State: <%=Helper.current_user(session).state%></p>
+   <p>DOB: <%=Helper.current_user(session).dob%></p>
+   <p>Email: <%=Helper.current_user(session).email%></p>
+   <a href="/users/<%=Helper.current_user(session).id%>/edit">Edit my information</a>
+   <hr>
+  <h2>Your appointments</h2>
+  <%@appointments.each do |a|%>
+     <p>Date: <%=a.date%> Hour:  <%=a.time.strftime("%I:%M %p")%></p>
+     <p>Dose:  <%=a.dose%></p>
+     <p>Location</p>
+     <p><%=a.location.name%></p>
+     <p><%=a.location.address%></p>
+     <a href="/appointments/<%=a.id%>/edit">Edit appointment</a><br>
+     <form action="/appointments/<%=a.id%>" method="post">
+       <input type="hidden" id="hidden" name="_method" value="delete">
+       <input type="submit" value="Cancel appointment">
+     </form>
+      <hr>
+  <%end%>
 
-
-<a href="/new">New appointment</a>
+<a href="/new">New appointment</a><br>
+<% if Helper.is_admin?(session) %>
+<a href="/admin">Admin's Page</a><br>
+<%end%>
 <a href="/logout">Log out</a>
+

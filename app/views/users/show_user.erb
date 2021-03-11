@@ -1,3 +1,17 @@
-<h1>Welcome <%=@user.fullname%></h1>
+<h1>Welcome <%=@user.username%></h1>
 
-<p>User data here</p>
+  
+    <p>Full  Name:  <%=@user.fullname%> </p> 
+    <p>Address: <%=@user.address%></p>
+    <p>State: <%=@user.state%></p>
+    <p>Email: <%=@user.email%></p>
+    <p>Dob: <%=@user.dob%></p>
+    
+<% if Helper.is_admin?(session) %>
+<a href="/admin">Admin's Page</a><br>
+
+<%else%>
+
+<a href="/appointments">Appointments</a><br>
+<%end%>
+ <a href="/logout">Log out</a>  

@@ -2,9 +2,9 @@ class UsersController < ApplicationController
 
 #routes
 #1-get user by slug
-   get '/user/:slug' do
+   get '/users/:slug' do
       @user = User.find_by_slug(params[:slug])
-      erb :'users/show'  
+      erb :'users/show_user'  
    end 
 
 #2-sign up a new user into the portal
@@ -84,6 +84,33 @@ class UsersController < ApplicationController
         end
 
     end       
+#5-edit current user
+  
+    get '/users/:id/edit' do
+        if Helper.is_logged_in?(session)
+            
+            @user = User.find_by_id(params[:id])
+            erb  :'users/edit_user'
+        else
+            redirect  "/login"
+        end
 
+    end   
+    
+    patch '/users/:id/edit' do
+        if Helper.is_logged_in?(session)
+            @user = Helper.current_user(session)
+            if params[:fullname].empty? || params[:address].empty? || params[:dob].empty? || params[:email].empty?
+                redirect "/users/#{@user.id}/edit"
+            else
+                @user.update(:fullname => params[:fullname],:address => params[:address], :dob => params[:dob], :email => params[:email])
+                redirect "/user/#{@user.username}"
+            end    
+           
+        else
+            redirect  "/login"
+        end
+
+    end   
 
 end    

@@ -1,8 +1,18 @@
 <h1>Your appointment</h1>
 
 <p>Date: <%=@appointment.date%></p>
-<p>Hour:  <%=@appointment.tiem%></p>
+<p>Hour:  <%=@appointment.time%></p>
 <p>Dose:  <%=@appointment.dose%></p>
 <p>Location</p>
 
-<p></p>
+<p><%=@appointment.location.name%></p>
+<p><%=@appointment.location.address%></p>
+
+<% if Helper.is_admin?(session) %>
+<a href="/admin">Admin's Page</a><br>
+
+<%else%>
+
+<a href="/appointments">Appointments</a><br>
+<%end%>
+ <a href="/logout">Log out</a>  

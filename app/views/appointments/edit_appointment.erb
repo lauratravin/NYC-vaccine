@@ -1,0 +1,32 @@
+<h1>Edit appointment</h1>
+<form action="/appointments/<%=@appointment.id%>" method="post">
+   
+   <input id="hidden" type="hidden" name="_method" value="patch">
+    <h2>Choose a location</h2>
+    <%@locations.each do |l|%>
+       <input type="radio" name="location_id" value="<%=l.id%>" <%= 'checked' if @appointment.location_id == l.id%>>
+       <label><%=l.name%> <%=l.address%><br></label>
+    <%end%>
+        
+   <br>
+    <label for="date">Date</label>
+    <input type="date" name="date" required value="<%=@appointment.date%>"><br><br>
+    <label for="time">Hour selected</label> <%=@appointment.time.strftime("%I:%M %p")%> <br>
+    <label for="time">New hour</label>
+    <input type="time" name="time"><br><br>
+    <label for="Dose">Dose</label><br>
+    <input type="radio" name="dose" value="1"  <%= 'checked' if @appointment.dose == '1'%>><label>1st dose</label><br>
+    <input type="radio" name="dose" value="2" <%= 'checked' if @appointment.dose == '2'%>><label>2st dose</label><br><br>
+   
+    <input type="submit" value="submit">
+
+</form>
+<br>
+<% if Helper.is_admin?(session) %>
+<a href="/admin">Admin's Page</a><br>
+
+<%else%>
+
+<a href="/appointments">Appointments</a><br>
+<%end%>
+ <a href="/logout">Log out</a>  
