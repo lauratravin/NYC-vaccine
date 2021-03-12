@@ -1,3 +1,4 @@
+
 <h1>Your appointment</h1>
 
 <p>Date: <%=@appointment.date%></p>
@@ -16,3 +17,7 @@
 <a href="/appointments">Appointments</a><br>
 <%end%>
  <a href="/logout">Log out</a>  
+<br>
+<%if flash[:message] %>
+  <%= flash[:message] %>
+<% end %>

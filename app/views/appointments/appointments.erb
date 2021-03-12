@@ -1,3 +1,6 @@
+<%if flash[:message] %>
+  <%= flash[:message] %>
+<% end %>
 <h1>Welcome, <%=Helper.current_user(session).username%></h1>
    <p>Name: <%=Helper.current_user(session).fullname%></p>
    <p>Address: <%=Helper.current_user(session).address%></p>
@@ -21,7 +24,7 @@
       <hr>
   <%end%>
 
-<a href="/new">New appointment</a><br>
+<a href="/appointments/new">New appointment</a><br>
 <% if Helper.is_admin?(session) %>
 <a href="/admin">Admin's Page</a><br>
 <%end%>

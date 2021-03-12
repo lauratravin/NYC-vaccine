@@ -1,4 +1,5 @@
 require './config/environment'
+require 'sinatra/flash'
 
 
 class ApplicationController < Sinatra::Base
@@ -8,6 +9,7 @@ class ApplicationController < Sinatra::Base
     set :views, 'app/views'
     enable :sessions
     set :session_secret, "vaccine_secret"
+    register Sinatra::Flash
   end
 
   #home
