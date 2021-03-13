@@ -71,6 +71,7 @@ class UsersController < ApplicationController
               redirect "/appointments"
             end  
         else
+            flash[:message] = "Wrong password or username" 
             redirect "/signup"
         end        
     end  
@@ -93,6 +94,7 @@ class UsersController < ApplicationController
             @user = User.find_by_id(params[:id])
             erb  :'users/edit_user'
         else
+            flash[:message] = "This user does not belong to you or you are not logged in." 
             redirect  "/login"
         end
 

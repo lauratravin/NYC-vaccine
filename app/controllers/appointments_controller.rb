@@ -8,7 +8,8 @@ class AppointmentsController < ApplicationController
     
     if Helper.is_logged_in?(session)
                    
-                #show only user appointments          
+                #show only user appointments    
+      
                 @appointments = Helper.current_user(session).appointments
                 erb :'/appointments/appointments'
     else
@@ -104,6 +105,7 @@ end
             if @appointment && @appointment.user ==  Helper.current_user(session)
                    erb :'appointments/edit_appointment'   
             else
+                flash[:message] = "This appointment does not belong to you."  
                redirect "/appointments"
             end 
         else
