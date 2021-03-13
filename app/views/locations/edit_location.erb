@@ -1,17 +1,17 @@
-<h1>New Location</h1>
+<h3>Change Location</h3>
 
 <form  action="/locations/<%=@location.id%>" method="post">
 <input id="hidden" type="hidden" name="_method" value="patch">
 <label for="name">Location name</label>
-<input type="text" name="name" value="<%=@location.name%>" size="30"><br>
+<input type="text" name="name" value="<%=@location.name%>" size="50"><br>
 <label for="address">Location address</label>
 <input type="text" name="address" value="<%=@location.address%>" size="50">
-<input type="submit" value="submit">
+<input type="submit" value="change">
 
 
 </form>
 
 
-<a href="/admin">Admin's Page</a><br>
+<a class="btn" href="/admin">Admin's Page</a><br>
 
- <a href="/logout">Log out</a>  
+ <a class="btn" href="/logout">Log out</a>  

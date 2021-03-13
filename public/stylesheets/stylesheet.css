@@ -1,0 +1,136 @@
+html, body,header,footer {
+    margin: 0px;
+    padding: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#header {
+    width: 100%;
+    background: #28387A;
+    padding: 80px 0px;
+     
+}
+
+
+h1,h2 {
+    color: #fff;
+    width: 500px;
+    margin: auto;
+    line-height: 40px;
+}
+
+#req{
+    width: 100%;
+    background:#EBAC3C;
+    padding: 10px 0px;
+    padding-left: 200px;
+}
+.container {
+    width: 100%;
+    background-image: url('/images/nyc.jpg');
+    background-position: center; 
+    height: 1000px;
+    background-size: auto;
+    display: block;
+    display: flex;
+}
+
+.views{
+    background: #f8f8f8;
+    width: 80%;
+    margin: 50px auto;    
+    padding: 40px;
+    border-radius: 25px;
+}
+.wrap{
+    width: 1200px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+  
+
+}
+#text_login{
+    width: 100%;
+}
+.btn_login{
+    width: 50%;
+    padding-top: 50px;
+    padding-left: 20%;
+    box-sizing: border-box;
+    
+}
+.column{
+    width: 50%;
+}
+
+
+
+.btn {
+  text-decoration: none;
+  color: #FFF;
+  display: inline-block;
+  background-color: #28387A;
+  width: 200px;
+  text-align: center;
+  padding-top: 8px;
+  padding-bottom:8px;
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+  input{
+    margin-bottom: 30px;
+  }
+
+ input[type=submit]{
+    color: #FFF;
+    font-size: 15px;
+    background: #28387A;
+    width: 200px;
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom:8px;
+    border:none;   
+  }
+label input[type=radio]{
+    display: inline;
+    
+    width: 50px;
+}
+
+
+table tr{
+    font-size: 13px;
+    height: 20px;
+}
+
+#admin .btn {
+    text-decoration: none;
+    color: #FFF;
+    background-color: #28387A;
+    text-align: center;
+    font-size: 10px;
+    padding: 5px 5px;
+    margin-bottom: 0px;
+  }
+ #admin form input[type=submit]{
+      color: #FFF;
+      font-size: 10px;
+      padding: 2px 2px;
+      background: #28387A;
+      margin-bottom: 0px !important;
+      text-align: center;
+      height: 2em;
+     
+      border:none;   
+    }
+
+
+  #admin table th{
+      color: #fff;
+      background-color: cornflowerblue;
+  }  
+
+  span{
+      color: red;
+  }

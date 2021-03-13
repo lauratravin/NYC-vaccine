@@ -1,6 +1,6 @@
-<h1>New appointment</h1>
+<h3>New appointment</h3>
 <form action="/appointments" method="post">
-    <h2>Choose a location</h2>
+    <h3>Choose a location</h3>
     <%@locations.each do |l|%>
        <input type="radio" name="appointment[location_id]" value="<%=l.id%>" checked><label><%=l.name%> <%=l.address%><br></label>
     <%end%>
@@ -10,19 +10,20 @@
     <input type="date" name="appointment[date]" required><br><br>
     <label for="time">Hours</label>
     <input type="time" name="appointment[time]" required><br><br>
-    <label for="Dose">Dose</label><br>
-    <input type="radio" name="appointment[dose]" value="1" checked><label>1st dose</label><br>
-    <input type="radio" name="appointment[dose]" value="2"><label>2st dose</label><br><br>
+    <label for="Dose">Dose</label><br>  <br>
+
+    <label><input type="radio" name="appointment[dose]" value="1" checked>1st dose</label>
+    <label><input type="radio" name="appointment[dose]" value="2">2st dose</label><br><br>
    
-    <input type="submit" value="submit">
+    <input type="submit" value="Create Appointment">
 
 </form>
 
 <% if Helper.is_admin?(session) %>
-<a href="/admin">Admin's Page</a><br>
+<a class="btn" href="/admin">Admin's Page</a><br>
 
 <%else%>
 
-<a href="/appointments">Appointments</a><br>
+<a class="btn" href="/appointments">Appointments</a><br>
 <%end%>
- <a href="/logout">Log out</a>  
+ <a class="btn" href="/logout">Log out</a>  

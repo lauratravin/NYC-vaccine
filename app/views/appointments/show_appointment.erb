@@ -1,5 +1,5 @@
 
-<h1>Your appointment</h1>
+<h3>Appointment</h3>
 
 <p>Date: <%=@appointment.date%></p>
 <p>Hour:  <%=@appointment.time%></p>
@@ -10,14 +10,14 @@
 <p><%=@appointment.location.address%></p>
 
 <% if Helper.is_admin?(session) %>
-<a href="/admin">Admin's Page</a><br>
+<a class="btn" href="/admin">Admin's Page</a><br>
 
 <%else%>
 
-<a href="/appointments">Appointments</a><br>
+<a  class="btn" href="/appointments">Appointments</a><br>
 <%end%>
- <a href="/logout">Log out</a>  
+ <a class="btn" href="/logout">Log out</a>  
 <br>
 <%if flash[:message] %>
-  <%= flash[:message] %>
+ <span>  <%= flash[:message] %></span> 
 <% end %>

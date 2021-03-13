@@ -25,6 +25,7 @@ class UsersController < ApplicationController
          params[:dob].empty? ||
          params[:username].empty? ||
          params[:password].empty? 
+         flash[:message] = "Please complete all the fields."
          redirect "/signup"
       else
         @user = User.create(
@@ -104,7 +105,7 @@ class UsersController < ApplicationController
                 redirect "/users/#{@user.id}/edit"
             else
                 @user.update(:fullname => params[:fullname],:address => params[:address], :dob => params[:dob], :email => params[:email])
-                redirect "/user/#{@user.username}"
+                redirect "/users/#{@user.username}"
             end    
            
         else

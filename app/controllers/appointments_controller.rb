@@ -22,15 +22,21 @@ end
 
   get '/appointments/new' do
             if Helper.is_logged_in?(session)
-              
-                if Appointment.where(:user_id => session[:user_id]).count >= 2
-                    flash[:message] = "You have already two appointments."
+                    if Helper.age_is_ok?(session)
+                        if Appointment.where(:user_id => session[:user_id]).count >= 2
+                            flash[:message] = "You have already two appointments."
 
-                    redirect "/appointments"
-                else   
-                        @locations = Location.all
-                        erb :'appointments/create_appointment'
-                end        
+                            redirect "/appointments"
+                        else   
+                                @locations = Location.all
+                                erb :'appointments/create_appointment'
+                        end  
+                    else
+                        flash[:message] = "Your age is not in the campaign range. We will contant you by email as soon as 
+                        we update the campaign"
+                        redirect  "/appointments"
+                    end        
+
             else
                 redirect  "/login"
             end        
@@ -41,6 +47,7 @@ end
             if Helper.is_logged_in?(session)
                
                        duplicate =  false
+                         #validate the that there available place in the location
                         Appointment.where(:date => params[:appointment][:date]).each do |z|
                          
                             if z.time.strftime("%H:%M") == params[:appointment][:time] && z.location_id.to_s == params[:appointment][:location_id]
@@ -52,13 +59,20 @@ end
                             flash[:message] = "This location and time is busy. Choose another time or location."
                             redirect  "/appointments"
                         else    
-                            @appointment = Appointment.create(params[:appointment])
-                            @appointment.user = Helper.current_user(session)
-                            @appointment.save
-                          
-                            flash[:message] = "Appointment created."
-                           
-                            redirect  "/appointments/#{@appointment.id}"
+                            user = User.find_by_id(session[:user_id]) 
+                            #validate the dose
+                            if user.appointments.count == 1 &&   user.appointments[0].dose == params[:appointment][:dose]
+                                flash[:message] = "You already have an appointment for this dose."
+                                redirect  "/appointments"
+                            else
+                                    @appointment = Appointment.create(params[:appointment])
+                                    @appointment.user = Helper.current_user(session)
+                                    @appointment.save
+                                
+                                    flash[:message] = "Appointment created."
+                                
+                                    redirect  "/appointments/#{@appointment.id}"
+                            end       
                         end    
                  
             else
@@ -71,7 +85,7 @@ end
   get '/appointments/:id' do
             if Helper.is_logged_in?(session)
                 @appointment = Appointment.find_by_id(params[:id])
-                if Helper.current_user(session) == @appointment.user
+                if Helper.current_user(session) == @appointment.user || Helper.is_admin?(session)
 
                     erb :'appointments/show_appointment'
                 else
@@ -119,14 +133,22 @@ end
      
         if Helper.is_logged_in?(session)
             @appointment= Appointment.find_by_id(params[:id])
-            if @appointment && @appointment.user ==  Helper.current_user(session)
+            if @appointment && @appointment.user ==  Helper.current_user(session)  
                 
                 @appointment.delete
                 flash[:message] = "Your appointment has been deleted."
 
                 redirect  "/appointments"
             else
-                redirect  "/login"
+                if Helper.is_admin?(session)
+                    @appointment.delete
+                
+                    redirect  "/admin"
+                else
+                  
+                    redirect  "/login"
+                end       
+              
             end   
         else
             redirect  "/login"

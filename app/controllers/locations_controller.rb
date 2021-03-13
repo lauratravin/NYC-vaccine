@@ -58,7 +58,8 @@ end
 patch '/locations/:id' do
     if Helper.is_logged_in?(session)
         if Helper.is_admin?(session)  
-            if params[:name].empty? || params[:addess].empty?
+         
+            if params[:name].empty? || params[:address].empty?
                 redirect "/locations/${params[:id]}"
             else
                 @location= Location.find_by_id(params[:id])

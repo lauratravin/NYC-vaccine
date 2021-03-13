@@ -9,14 +9,26 @@ class Helper
     end
 
     def self.is_admin?(session)
-    #  binding.pry
-        if session[:user_id]
+          
            @user =  User.find_by_id(session[:user_id])
+          
            if @user.level == "admin"
                return true     #this will work?    
            else
              return false
           end  
-        end 
+     
+    end  
+
+    def  self.age_is_ok?(session)
+           @user =  User.find_by_id(session[:user_id])
+           age = Date.today.year - @user.dob.year
+           age -= 1 if  Date.today <  @user.dob + age.years
+           if age <= 65
+             return false
+           else 
+             return true 
+           end
+           
     end  
 end    

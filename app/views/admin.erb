@@ -1,9 +1,12 @@
-<h1>Locations</h1>
-<table>
+<h3>Locations</h3>
+<div id="admin">
+<table id="table1">
       <tr>
       <th>Id</th>
       <th>Location name</th>
       <th>Address</th>
+      <th>Action</th>
+      <th>Action</th>
       </tr>
 <%@locations.each do |l|%>
       
@@ -12,29 +15,32 @@
        <td> <%=l.id%> </td> 
        <td> <%=l.name%> </td>  
        <td> <%=l.address%>  </td>
-       <td> <a href="/locations/<%=l.id%>/edit">Edit</a> </td> 
-       <td> 
-          <form action="/locations/<%=l.id%>/delete" method="post">
-            <input id="hidden" type="hidden" name="_method" value="delete">
+            <input  id="hidden" type="hidden" name="_method" value="delete">
+       <td> <a  class="btn" href="/locations/<%=l.id%>/edit">Edit</a> </td> 
+       <td>
+        <form action="/locations/<%=l.id%>/delete" method="post">
+           <input type="hidden" id="hidden" name="_method" value="delete">
             <input type="submit" value="Delete">
-          </form>
-        </td>   
-      </tr>
+          </form>  
+        </td>
+      </tr> 
+    
    
 <%end%>
 
 </table>
 <br>
-<a href="/locations/new">New Location</a>
+<a class="btn" href="/locations/new">New Location</a>
 
-<h1>Users</h1>
+<h3>Users</h3>
 <table>
       <tr>
       <th>Id</th>
       <th>Username</th>
       <th>Full Name</th>
-      <th>More</th>
-      <th>Edit</th>
+      <th>Show</th>
+      <th>Action</th>
+    
 
       </tr>
     <%@users.each do |u|%>
@@ -42,13 +48,13 @@
        <td><%=u.id%></td> 
        <td><%=u.username%></td>
        <td><%=u.fullname%></td>
-       <td><a href="/users/<%=u.username%>">More</a></td>
-       <td><a href="/users/<%=u.id%>/edit">Edit</a> </td> 
+       <td><a  class="btn" href="/users/<%=u.id%>/edit">Edit</a> </td> 
+       <td><a  class="btn"  href="/users/<%=u.username%>">More</a></td>
        </tr>
     <%end%>
 </table>
 
-<h1>Appointments</h1>
+<h3>Appointments</h3>
 <table>
       <tr>
       <th>Id</th>
@@ -56,22 +62,26 @@
       <th>Hour</th>
       <th>Dose</th>
       <th>Location</th>
-      <th>User<th>
-
+      <th>User</th>
+      <th>Action</th>
+      <th>Action</th>
+      
+      
       </tr>
     <%@appointments.each do |a|%>
       <tr>
-       <td><%=a.id%></td> 
+       <td><a href="/appointments/<%=a.id%>"><%=a.id%></a></td> 
        <td><%=a.date%></td>
        <td><%=a.time.strftime("%I:%M %p")%></td>
        <td><%=a.dose%></td>
        <td><%=a.location.name%></td>       
        <td><a href="/users/<%=a.user.username%>"><%=a.user.username%></a></td>
-       <td><a href="/users/<%=a.id%>/edit">Edit</a> </td> 
+      
+       <td><a class="btn" href="/users/<%=a.id%>/edit">Edit</a> </td> 
        <td>
          <form action="/appointments/<%=a.id%>" method="post">
            <input type="hidden" id="hidden" name="_method" value="delete">
-           <input type="submit" value="Cancel appointment">
+           <input class="btn" type="submit" value="Cancel">
          </form>
        </td> 
        </tr>
@@ -79,15 +89,13 @@
 </table>
 
 
-<h1>Metrics</h1>
+<h3>Metrics</h3>
 <table>
       <tr>
       <th>Id</th>
       <th>Locations</th>
       <th>Appointments</th>
-      <th>Users</th>
-     
-
+      <th>Users</th>    
       </tr>
 
     <%@locations.each do |loc|%>
@@ -98,4 +106,6 @@
         <td><%=loc.users.count%></td>
     <%end%>
 </table>
-<a href="/logout">Log out</a>
+<a class="btn" href="/logout">Log out</a>
+
+</div>

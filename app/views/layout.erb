@@ -2,14 +2,29 @@
 <html>
   <head>
     <title>NYC Vaccine Program</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/stylesheet.css" >
   </head>
   <body>
 
-    <header>
-      <h1>Welcome to NYC Vaccine 2021</h1>
-    </header>  
+    <div id="header">
+     
+        <h1>Welcome to NYC Vaccine 2021</h1>
+        <h2>COVID-19 Vaccine: Safe, Effective, Free</h2>
+      
+    </div> 
+     <div id="req">
+            <h3>Eligibility</h3>
+            <ul>
+            <li>Age 65+ <br>You can register anyway and we will email you when you can apply.</li>
+            <li>NYC resident</li>
+            </ul>
+       </div> 
     <div class="container">
-      <%= yield %>
+       
+       <div class="views">
+             <%= yield %>
+       </div>
+     
     </div>
 
   </body>
