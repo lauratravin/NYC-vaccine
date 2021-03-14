@@ -26,7 +26,7 @@
             <td><%=a.location.name%></td>       
             <td><a href="/users/<%=a.user.username%>"><%=a.user.username%></a></td>
             
-            <td><a class="admin-btn" href="/users/<%=a.id%>/edit">Edit</a> </td> 
+            <td><a class="admin-btn" href="/appointments/<%=a.id%>/edit">Edit</a> </td> 
             <td>
               <form action="/appointments/<%=a.id%>" method="post">
                 <input type="hidden" id="hidden" name="_method" value="delete">

@@ -92,7 +92,12 @@ class UsersController < ApplicationController
         if Helper.is_logged_in?(session)
             
             @user = User.find_by_id(params[:id])
-            erb  :'users/edit_user'
+            if @user  && ( @user == Helper.current_user(session) || Helper.is_admin?(session) )
+             erb  :'users/edit_user'
+            else
+                flash[:message] = "This user does not belong to you or you are not admin" 
+                redirect  "/login"
+            end     
         else
             flash[:message] = "This user does not belong to you or you are not logged in." 
             redirect  "/login"
@@ -107,7 +112,12 @@ class UsersController < ApplicationController
                 redirect "/users/#{@user.id}/edit"
             else
                 @user.update(:fullname => params[:fullname],:address => params[:address], :dob => params[:dob], :email => params[:email])
-                redirect "/users/#{@user.username}"
+               
+                if  Helper.is_admin?(session)
+                    redirect  "/admin" 
+                   else  
+                    redirect "/users/#{@user.username}"
+                   end
             end    
            
         else

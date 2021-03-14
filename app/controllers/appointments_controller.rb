@@ -99,11 +99,12 @@ end
 
   #4 edit appointments
   get '/appointments/:id/edit' do
-         if Helper.is_logged_in?(session)
+      
+         if Helper.is_logged_in?(session) || Helper.is_admin?(session)
             @locations=Location.all
             @appointment= Appointment.find_by_id(params[:id])
-            @appointments_count = Appointment.where(:user_id => session[:user_id]).count
-            if @appointment && @appointment.user ==  Helper.current_user(session)
+            @appointments_count = Appointment.where(:user_id => @appointment.user_id).count
+            if @appointment && ( @appointment.user ==  Helper.current_user(session) || Helper.is_admin?(session) )
                    erb :'appointments/edit_appointment'   
             else
                 flash[:message] = "This appointment does not belong to you."  
@@ -149,7 +150,11 @@ end
                                 user = User.find_by_id(session[:user_id]) 
                                               
                                              @appointment.update(:location_id => params[:location_id],:date => params[:date], :time => params[:time],:dose => params[:dose] )
-                                             redirect  "/appointments"
+                                             if  Helper.is_admin?(session)
+                                              redirect  "/admin" 
+                                             else  
+                                              redirect  "/appointments" 
+                                             end
                           
                             end          
                         end
@@ -177,9 +182,9 @@ end
                 if Helper.is_admin?(session)
                     @appointment.delete
                 
-                    redirect  "/admin"
+                    redirect  "/admin-app"
                 else
-                  
+                    flash[:message] = "Appointment cannnot be deleted."
                     redirect  "/login"
                 end       
               
