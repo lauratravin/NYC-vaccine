@@ -91,6 +91,7 @@ There is a logic that will guide Admin vs User views.
 │   └── views
 │       ├── index.erb
 │       ├── admin.erb
+│       ├── admin-app.erb
 │       ├── layout.erb
 │       ├── appointments
 │       │   ├── appointments.erb

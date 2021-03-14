@@ -13,13 +13,12 @@
     <input type="date" name="date" required value="<%=@appointment.date%>"><br><br>
     <label for="time">Hour selected</label> <%=@appointment.time.strftime("%I:%M %p")%> <br>
     <label for="time">New hour</label>
-    <input type="time" name="time" required><br><br>
+    <input type="time" name="time" ><br><br>
 
-    
       <label for="Dose">Dose</label><br> <br>
-      <label><input  type="radio" name="dose" value="1"  <%= 'checked' if @appointment.dose == '1'%>>1st dose</label>
-      <label><input  type="radio" name="dose" value="2" <%= 'checked' if @appointment.dose == '2'%>>2st dose</label><br><br>
-   
+      <label><input  type="radio" name="dose" value="1"  <%= 'checked' if @appointment.dose == '1'%> <%= 'disabled' if @appointments_count > 1%>  >1st dose</label>
+      <label><input  type="radio" name="dose" value="2" <%= 'checked' if @appointment.dose == '2'%> <%= 'disabled' if @appointments_count > 1%>  >2st dose</label><br><br>
+    
     <input type="submit" value="Change">
 
 </form>

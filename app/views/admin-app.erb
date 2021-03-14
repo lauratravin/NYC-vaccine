@@ -1,0 +1,49 @@
+<div class="admin">
+<a class="btn" href="/logout">Log out</a>
+<a class="btn" href="/admin">Users & Locations</a>
+
+
+      <h3>Appointments</h3>
+      <table>
+            <tr>
+            <th>Id</th>
+            <th>Date</th>
+            <th>Hour</th>
+            <th>Dose</th>
+            <th>Location</th>
+            <th>User</th>
+            <th>Action</th>
+            <th>Action</th>
+            
+            
+            </tr>
+          <%@appointments.each do |a|%>
+            <tr>
+            <td><a href="/appointments/<%=a.id%>"><%=a.id%></a></td> 
+            <td><%=a.date%></td>
+            <td><%=a.time.strftime("%I:%M %p")%></td>
+            <td><%=a.dose%></td>
+            <td><%=a.location.name%></td>       
+            <td><a href="/users/<%=a.user.username%>"><%=a.user.username%></a></td>
+            
+            <td><a class="admin-btn" href="/users/<%=a.id%>/edit">Edit</a> </td> 
+            <td>
+              <form action="/appointments/<%=a.id%>" method="post">
+                <input type="hidden" id="hidden" name="_method" value="delete">
+                <input class="btn" type="submit" value="Cancel">
+              </form>
+            </td> 
+            </tr>
+          <%end%>
+      </table>
+  </div>    
+    
+
+
+
+
+
+
+
+
+</div>

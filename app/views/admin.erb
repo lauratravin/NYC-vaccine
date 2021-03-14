@@ -1,111 +1,73 @@
-<h3>Locations</h3>
-<div id="admin">
-<table id="table1">
-      <tr>
-      <th>Id</th>
-      <th>Location name</th>
-      <th>Address</th>
-      <th>Action</th>
-      <th>Action</th>
-      </tr>
-<%@locations.each do |l|%>
-      
-      <tr>
-        
-       <td> <%=l.id%> </td> 
-       <td> <%=l.name%> </td>  
-       <td> <%=l.address%>  </td>
-            <input  id="hidden" type="hidden" name="_method" value="delete">
-       <td> <a  class="btn" href="/locations/<%=l.id%>/edit">Edit</a> </td> 
-       <td>
-        <form action="/locations/<%=l.id%>/delete" method="post">
-           <input type="hidden" id="hidden" name="_method" value="delete">
-            <input type="submit" value="Delete">
-          </form>  
-        </td>
-      </tr> 
-    
-   
-<%end%>
-
-</table>
-<br>
-<a class="btn" href="/locations/new">New Location</a>
-
-<h3>Users</h3>
-<table>
-      <tr>
-      <th>Id</th>
-      <th>Username</th>
-      <th>Full Name</th>
-      <th>Show</th>
-      <th>Action</th>
-    
-
-      </tr>
-    <%@users.each do |u|%>
-      <tr>
-       <td><%=u.id%></td> 
-       <td><%=u.username%></td>
-       <td><%=u.fullname%></td>
-       <td><a  class="btn" href="/users/<%=u.id%>/edit">Edit</a> </td> 
-       <td><a  class="btn"  href="/users/<%=u.username%>">More</a></td>
-       </tr>
-    <%end%>
-</table>
-
-<h3>Appointments</h3>
-<table>
-      <tr>
-      <th>Id</th>
-      <th>Date</th>
-      <th>Hour</th>
-      <th>Dose</th>
-      <th>Location</th>
-      <th>User</th>
-      <th>Action</th>
-      <th>Action</th>
-      
-      
-      </tr>
-    <%@appointments.each do |a|%>
-      <tr>
-       <td><a href="/appointments/<%=a.id%>"><%=a.id%></a></td> 
-       <td><%=a.date%></td>
-       <td><%=a.time.strftime("%I:%M %p")%></td>
-       <td><%=a.dose%></td>
-       <td><%=a.location.name%></td>       
-       <td><a href="/users/<%=a.user.username%>"><%=a.user.username%></a></td>
-      
-       <td><a class="btn" href="/users/<%=a.id%>/edit">Edit</a> </td> 
-       <td>
-         <form action="/appointments/<%=a.id%>" method="post">
-           <input type="hidden" id="hidden" name="_method" value="delete">
-           <input class="btn" type="submit" value="Cancel">
-         </form>
-       </td> 
-       </tr>
-    <%end%>
-</table>
-
-
-<h3>Metrics</h3>
-<table>
-      <tr>
-      <th>Id</th>
-      <th>Locations</th>
-      <th>Appointments</th>
-      <th>Users</th>    
-      </tr>
-
-    <%@locations.each do |loc|%>
-      <tr>
-       <td><%=loc.id%></td> 
-       <td><%=loc.name%></td>
-       <td><%=loc.appointments.count%></td>
-        <td><%=loc.users.count%></td>
-    <%end%>
-</table>
+<div class="admin">
 <a class="btn" href="/logout">Log out</a>
+<a class="btn" href="/admin-app">Appointments</a>
+
+
+
+          <h3>Locations</h3>
+    
+          <table id="table1">
+                <tr>
+                <th>Id</th>
+                <th>Location name</th>
+                <th>Address</th>
+                <th>Action</th>
+                </tr>
+          <%@locations.each do |l|%>
+                
+                <tr>               
+                <td> <%=l.id%> </td> 
+                <td> <%=l.name%> </td>  
+                <td> <%=l.address%>  </td>
+                      <input  id="hidden" type="hidden" name="_method" value="delete">
+                <td> <a  class="btn" href="/locations/<%=l.id%>/edit">Edit</a> </td> 
+                
+                </tr> 
+                       
+          <%end%>
+          </table>
+          <a class="btn" href="/locations/new">New Location</a>
+
+          <h3>Metrics</h3>
+          <table>
+                <tr>
+                <th>Id</th>
+                <th>Locations</th>
+                <th>Appointments</th>
+                <th>Users</th>    
+                </tr>
+
+              <%@locations.each do |loc|%>
+                <tr>
+                <td><%=loc.id%></td> 
+                <td><%=loc.name%></td>
+                <td><%=loc.appointments.count%></td>
+                  <td><%=loc.users.uniq.count%></td>
+              <%end%>
+          </table>
+
+
+        <h3>Users</h3>
+        <table>
+              <tr>
+              <th>Id</th>
+              <th>Username</th>
+              <th>Full Name</th>
+              <th>Edit</th>
+              <th>Show</th>
+            
+
+              </tr>
+            <%@users.each do |u|%>
+              <tr>
+              <td><%=u.id%></td> 
+              <td><%=u.username%></td>
+              <td><%=u.fullname%></td>
+              <td><a  class="btn" href="/users/<%=u.id%>/edit">Edit</a> </td> 
+              <td><a  class="btn"  href="/users/<%=u.username%>">More</a></td>
+              </tr>
+            <%end%>
+        </table>
+
 
 </div>

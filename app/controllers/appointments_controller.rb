@@ -102,6 +102,7 @@ end
          if Helper.is_logged_in?(session)
             @locations=Location.all
             @appointment= Appointment.find_by_id(params[:id])
+            @appointments_count = Appointment.where(:user_id => session[:user_id]).count
             if @appointment && @appointment.user ==  Helper.current_user(session)
                    erb :'appointments/edit_appointment'   
             else
@@ -116,7 +117,18 @@ end
   patch '/appointments/:id' do
             if Helper.is_logged_in?(session)
                         @appointment= Appointment.find_by_id(params[:id])
-                        if params[:location_id].empty? || params[:date].empty? || params[:time].empty? || params[:dose].empty? 
+
+                        if  params[:time].empty? #true means to keep olt time
+                            params[:time]= @appointment.time
+                         end  
+                         
+                         if  params[:dose].nil? #because when there are 2 appt, dose is not editable and become nill 
+                            params[:dose] = @appointment.dose
+                         end  
+
+                         
+
+                        if params[:location_id].empty? || params[:date].empty? 
                         flash[:message] = "Some field is empty."
                         redirect  "/appointments/#{@appointment.id}/edit"
                         
@@ -125,7 +137,7 @@ end
                              duplicate =  false
                              #validate the that there available place in the location
                              Appointment.where(:date => params[:date]).each do |z|
-                                    if z.time.strftime("%H:%M") == params[:time] && z.location_id.to_s == params[:location_id]
+                                    if z.time.strftime("%H:%M") == params[:time] && z.location_id.to_s == params[:location_id] && z.id != @appointment.id
                                         duplicate = true
                                     end  
                              end 
@@ -135,15 +147,10 @@ end
                                 redirect  "/appointments"
                             else
                                 user = User.find_by_id(session[:user_id]) 
-                                #validate the dose
-                                 
-                                if user.appointments.count == 2 &&   user.appointments[0].dose == params[:dose]
-                                    flash[:message] = "You already have an appointment for this dose."
-                                    redirect  "/appointments"
-                                else
-                                        @appointment.update(:location_id => params[:location_id],:date => params[:date], :time => params[:time],:dose => params[:dose] )
-                                        redirect  "/appointments"
-                                end
+                                              
+                                             @appointment.update(:location_id => params[:location_id],:date => params[:date], :time => params[:time],:dose => params[:dose] )
+                                             redirect  "/appointments"
+                          
                             end          
                         end
 
@@ -151,7 +158,7 @@ end
                     
             else
                 redirect  "/login"
-             end  
+            end  
   end 
 
   #5-delete appointment

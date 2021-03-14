@@ -81,21 +81,6 @@ patch '/locations/:id' do
 
 end
 
-#4-delete location only admin
-
-delete '/locations/:id/delete' do
-    if Helper.is_logged_in?(session)
-        if Helper.is_admin?(session)  
-            @location= Location.find_by_id(params[:id])
-            @location.delete
-            redirect  "/admin"
-        else
-            redirect  "/login"
-        end   
-    else
-        redirect  "/login"
-    end    
-end 
 
 
 
