@@ -53,7 +53,7 @@ Admin can:
 
 Appointments: see/modify/delete
 User: see/edit
-Locations: create/see/modify/delete
+Locations: create/see/modify
 
 User can:
 

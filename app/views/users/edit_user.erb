@@ -16,10 +16,10 @@
 </form>
 
 <% if Helper.is_admin?(session) %>
-<a href="/admin" >Admin's Page</a><br>
+<a class="btn" href="/admin" >Admin's Page</a><br>
 
 <%else%>
 
-<a href="/appointments" class="btn">Appointments</a><br>
+<a class="btn" href="/appointments" >Appointments</a><br>
 <%end%>
- <a href="/logout" class="btn">Log out</a>  
+ <a class="btn" href="/logout" c>Log out</a>  
